@@ -57,27 +57,27 @@ The installation is estimated to take 1 hour, depending on the network environme
 
 Convert the SVS file to PNG format and use the watershed algorithm to transform the original image into a binary image. Divide the entire H&E image into tiles of size 224x224, ensuring that each tile contains more than 60% of the tissue content.
 ```
-python ./0_data_collection_and_preprocess/H&E Tile Segmentation with watershed.py 
+python ./data/H&E Tile Segmentation with watershed.py 
 ```
 #### Extract Features
-In the file `./1_deeplearning_contrastive_cluster/models/model.py `, we provide an example of how to extract features
+In the file `./code/1_deeplearning_contrastive_cluster/models/model.py `, we provide an example of how to extract features
 from each tile, given their coordinates, using a ResNet50 pre-trained on the ImageNet dataset.
 The code to train such a model is available here: https://github.com/topics/resnet50.
 ```
-python ./1_deeplearning_contrastive_cluster/train.py 
-python ./1_deeplearning_contrastive_cluster/test.py 
+python ./code/1_deeplearning_contrastive_cluster/train.py 
+python ./code/1_deeplearning_contrastive_cluster/test.py 
 ```
 #### Histomorphological Feature
 
 The script constructs a vector where each dimension represents the relative proportion of a cluster within the histopathological image. This vector provides information about the composition and distribution of different histomorphological features within the image.
 ```
-python ./1_deeplearning_contrastive_cluster/Histomorphological_Feature.py 
+python ./code/1_deeplearning_contrastive_cluster/Histomorphological_Feature.py 
 ```
 #### Model Constrution
 The script to train models to predict High-risk/Low-risk at slide-level fashion is available here: `Stratify patient's discovery at TMA level into high and low risk groups for OS.R`.
 ```
-Rscript ./2_cox multiple factors analysis _and_prognosis/Stratify patient's discovery at TMA level into high and low risk groups for OS.R 
-Rscript ./2_cox multiple factors analysis _and_prognosis/Survival analysis of the entire queue.R 
+Rscript ./code/2_cox multiple factors analysis _and_prognosis/Stratify patient's discovery at TMA level into high and low risk groups for OS.R 
+Rscript ./code/2_cox multiple factors analysis _and_prognosis/Survival analysis of the entire queue.R 
 
 ```
 where --wsi_path is the path to all the WSI tiff of the patient you are interested.
